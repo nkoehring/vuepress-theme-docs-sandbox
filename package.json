@@ -1,0 +1,12 @@
+{
+  "name": "vuepress-theme-docs-sandbox",
+  "version": "0.1.0",
+  "description": "Vuepress theme with splitview sandbox and livecoding sandbox",
+  "main": "Layout.vue",
+  "repository": "https://github.com/nkoehring/vuepress-theme-docs-sandbox",
+  "author": "koehr <n@koehr.in>",
+  "license": "MIT",
+  "dependencies": {
+    "animate.css": "^3.6.1"
+  }
+}
