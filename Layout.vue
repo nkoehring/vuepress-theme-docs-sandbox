@@ -6,13 +6,12 @@
 </template>
 
 <script>
-import cmOpts from './codemirror-options'
 import SandBox from './SandBox.vue'
 
 export default {
   components: { SandBox },
   data () {
-    return { cmOpts }
+    return {}
   },
   computed: {
     isHome () {
@@ -22,6 +21,7 @@ export default {
 }
 </script>
 
+<style src="prismjs/themes/prism.css"></style>
 <style>
 body {
   margin: 0;
@@ -57,6 +57,21 @@ p {
   margin: 2rem;
   max-width: 36rem
 }
+.line-numbers-mode {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  justify-content: flex-end;
+  background-color: #F5F2F0;
+}
+.line-numbers-wrapper {
+  flex: 0 0 auto;
+  width: 2.5rem;
+  text-align: right;
+  padding: 1.5rem .5rem;
+  line-height: 1.5;
+  color: #876;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s ease;
 }
