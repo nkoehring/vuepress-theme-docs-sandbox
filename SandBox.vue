@@ -1,24 +1,30 @@
 <template>
   <div class="content">
     <h1>Vuejs Preview</h1>
-    <template v-if="examples[h.title]" v-for="h in headers"> 
-      <h2>{{ h.title }}</h2>
-      <component :is="examples[h.title]" />
+    <template v-if="example">
+      <h2>{{ example.title }}</h2>
+      <component :is="example.component" />
     </template>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {}
+  props: {
+    examples: Array,
+    scrollTop: Number
   },
-  computed: {
-    headers () {
-      return this.$page.headers
-    },
-    examples () {
-      return this.$page.frontmatter.examples
+  data () {
+    return { example: null }
+  },
+  watch: {
+    scrollTop (newValue, oldValue) {
+      const current = this.examples.find(example => {
+        const diff = example.offset - this.scrollTop
+        return diff > -200 && diff < 50
+      })
+
+      if (current) this.example = current
     }
   }
 }

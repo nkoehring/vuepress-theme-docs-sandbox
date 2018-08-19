@@ -1,7 +1,7 @@
 <template>
   <div class="theme-container">
-    <div id="content"><Content /></div>
-    <div id="sandbox"><SandBox /></div>
+    <div id="content" ref="content" @scroll="scrollTop = $event.target.scrollTop"><Content /></div>
+    <div id="sandbox"><SandBox :examples="examples" :scrollTop="scrollTop" /></div>
   </div>
 </template>
 
@@ -11,11 +11,32 @@ import SandBox from './SandBox.vue'
 export default {
   components: { SandBox },
   data () {
-    return {}
+    return {
+      examples: [],
+      scrollTop: 0
+    }
   },
-  computed: {
-    isHome () {
-      return this.$page.frontmatter.home
+  mounted () {
+    const content = this.$refs.content
+    const examples = Object.keys(this.$page.frontmatter.examples)
+
+    this.examples = examples.map(slug => {
+      const el = content.querySelector(`#${slug}`)
+      if (el) {
+        const offset = el.offsetTop
+        const title = el.innerText
+        const component = this.$page.frontmatter.examples[slug]
+
+        return {offset, slug, title, component}
+      }
+    })
+  },
+  methods: {
+    onScroll (evt) {
+      console.log('scroll', evt)
+    },
+    log () {
+      console.log(this.$page.headers, this.$page.frontmatter.examples)
     }
   }
 }
@@ -56,6 +77,9 @@ p {
 #sandbox > .content {
   margin: 2rem;
   max-width: 36rem
+}
+#content > .content {
+  float: right;
 }
 .line-numbers-mode {
   display: flex;
